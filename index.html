@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0f172a">
+  <title>超市临期管家</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div><div class="eyebrow">SUPERMARKET STOCK</div><h1>临期管家</h1></div>
+    <button id="notifyBtn" class="secondary">🔔 开启提醒</button>
+  </header>
+  <main class="container">
+    <section class="hero">
+      <div><h2>每天先处理最危险的商品</h2><p>系统会按今天的日期计算剩余天数。商品距离过期 <strong>45 天或更少</strong> 时自动标记为临期。</p></div>
+      <div class="today">今天<br><strong id="today"></strong></div>
+    </section>
+    <section class="stats">
+      <div class="stat"><span>全部商品</span><b id="total">0</b></div>
+      <div class="stat warning"><span>45天内到期</span><b id="expiring">0</b></div>
+      <div class="stat danger"><span>15天内到期</span><b id="urgent">0</b></div>
+      <div class="stat expired"><span>已过期</span><b id="expired">0</b></div>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><div><h2>商品清单</h2><p>数据保存在当前浏览器，可随时编辑或删除。</p></div><button id="addBtn" class="primary">＋ 添加商品</button></div>
+      <div class="toolbar"><input id="search" placeholder="搜索商品名称、条码、货架…"><select id="filter"><option value="all">全部状态</option><option value="expiring">45天内到期</option><option value="urgent">15天内到期</option><option value="expired">已过期</option><option value="normal">正常</option></select></div>
+      <div class="table-wrap"><table><thead><tr><th>商品</th><th>类别</th><th>数量</th><th>过期日期</th><th>剩余</th><th>状态</th><th></th></tr></thead><tbody id="productRows"></tbody></table><div id="empty" class="empty">还没有商品。点击“添加商品”开始管理库存。</div></div>
+    </section>
+  </main>
+  <dialog id="productDialog">
+    <form method="dialog" id="productForm"><div class="dialog-head"><h2 id="dialogTitle">添加商品</h2><button type="button" id="closeDialog" class="icon">×</button></div>
+      <input type="hidden" id="productId">
+      <label>商品名称<input id="name" required maxlength="80" placeholder="例如：鲜牛奶 1L"></label>
+      <div class="grid2"><label>类别<input id="category" maxlength="40" placeholder="乳制品"></label><label>条码 / SKU<input id="sku" maxlength="40" placeholder="可选"></label></div>
+      <div class="grid2"><label>数量<input id="quantity" type="number" min="0" step="1" value="1" required></label><label>过期日期<input id="expiry" type="date" required></label></div>
+      <div class="grid2"><label>货架位置<input id="location" maxlength="40" placeholder="A-03"></label><label>备注<input id="note" maxlength="120" placeholder="可选"></label></div>
+      <div class="form-actions"><button type="button" id="cancelBtn" class="secondary">取消</button><button class="primary" value="default">保存商品</button></div>
+    </form>
+  </dialog>
+  <script src="app.js"></script>
+</body>
+</html>
